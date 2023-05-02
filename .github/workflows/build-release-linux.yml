@@ -12,7 +12,7 @@ jobs:
         run: |
           docker build -t nbis-builder .
           mkdir dist
-          docker run --rm -v $(pwd)/dist:/dist nbis-builder bash -c "cd /build && zip -r /dist/nbis-linux-amd64.zip *"
+          docker run --rm -v $(pwd)/dist:/dist nbis-builder bash -c "apt-get -y zip && cd /build && zip -r /dist/nbis-linux-amd64.zip *"
 
       - name: Create Release
         uses: actions/create-release@v1
