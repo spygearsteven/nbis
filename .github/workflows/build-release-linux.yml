@@ -18,7 +18,7 @@ jobs:
         run: |
           docker build -t nbis-builder .
           mkdir dist
-          docker run --rm -v $(pwd)/dist:/dist nbis-builder bash -c "apt-get install -y zip && cd /build && zip -r /dist/nbis-linux-amd64.zip *"
+          docker run --rm -v $(pwd)/dist:/dist nbis-builder bash -c "cd /build && tar -zcvf /dist/nbis-linux-amd64.tar.gz ."
 
       - name: Create Release
         uses: bruceadams/get-release@v1.3.2
@@ -32,6 +32,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./dist/nbis-linux-amd64.zip
-          asset_name: nbis-linux-amd64.zip
-          asset_content_type: application/zip
+          asset_path: ./dist/nbis-linux-amd64.tar.gz
+          asset_name: nbis-linux-amd64.tar.gz
+          asset_content_type: application/gzip
